@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="997c3cedce674167a558e3733b6a4771" Name="Diagram1">
+        <EntityTypeShape EntityType="gibddModel.CarColors" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.Cars" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.Categories" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.ColorNameTypes" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.ColorTypes" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.CompanyJob" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.Drivers" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.EngineTypes" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.Fines" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.HistoryOfStatus" Width="1.5" PointX="9.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.Licenses" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.ManufacturerType" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.RegionCodes" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.StateOfFines" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.StateOfLicenses" Width="1.5" PointX="7.5" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.TypeOfDrive" Width="1.5" PointX="5.25" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="gibddModel.Users" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="gibddModel.FK_CarColors_ColorNameTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Cars_CarColors" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Cars_Drivers" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Cars_EngineTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Cars_ManufacturerType" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Cars_RegionCodes" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Cars_TypeOfDrive" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Fines_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_ColorNameTypes_ColorTypes1" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Drivers_CompanyJob" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Fines_Drivers" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Licenses_Drivers" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_Fines_StateOfFines" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_HistoryOfStatus_Licenses" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.FK_HistoryOfStatus_StateOfLicenses" ManuallyRouted="false" />
+        <AssociationConnector Association="gibddModel.LicenseCategories" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
