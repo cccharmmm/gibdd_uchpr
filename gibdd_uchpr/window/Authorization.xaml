@@ -181,6 +181,7 @@
                 <Button  Style="{StaticResource LinkButtonStyle}" 
                         Background="Transparent"
                         BorderBrush="Transparent"
+                        Foreground="Gray"
                         FocusVisualStyle="{x:Null}"
                         Content="Назад"
                         HorizontalAlignment="Center"
