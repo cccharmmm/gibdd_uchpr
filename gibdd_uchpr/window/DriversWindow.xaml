@@ -1,0 +1,82 @@
+﻿<Window x:Class="gibdd_uchpr.window.DriversWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gibdd_uchpr.window"
+        mc:Ignorable="d"
+        Title="Водители" 
+        Height="450" 
+        Width="800"
+        MinHeight="350"
+        MinWidth="700"
+        MaxHeight="550"
+        MaxWidth="900" WindowStartupLocation="CenterScreen" 
+        Icon="/images/logotype/gibdd_logo.png">
+    <Window.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Background" Value="LightBlue"/>
+            <Setter Property="Foreground" Value="#37474F"/>
+            <Setter Property="BorderBrush" Value="LightBlue"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                         Background="{TemplateBinding Background}" 
+                         BorderBrush="{TemplateBinding BorderBrush}" 
+                         BorderThickness="{TemplateBinding BorderThickness}">
+                            <Border CornerRadius="3">
+                                <ContentPresenter 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <DockPanel>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" 
+                        Orientation="Horizontal"  
+                        Background="LightBlue">
+                    <Button Content="Водители" 
+                        Style="{StaticResource NavButtonStyle}"
+                        Margin="165 0 20 0" />
+                    <Button Content="Машины" 
+                        Style="{StaticResource NavButtonStyle}" 
+                        Click="carsButton"/>
+                    <Button Content="Штрафы" 
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="finesButton"/>
+                    <Button Content="Водительское удостоверение" 
+                        Style="{StaticResource NavButtonStyle}" 
+                        Click="licencesButton"/>
+                    <Button Content="Выйти" 
+                        Style="{StaticResource NavButtonStyle}" 
+                        Margin="70 0 0 0"
+                        Click="exitButton"/>
+                </StackPanel>
+                <ContentControl x:Name="MainContent" Margin="15"/>
+                <Image Source="/images/logotype/gibdd_logo.png" 
+                       Width="150" 
+                       Height="150" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Top" 
+                       Margin="0 80 0 10"/>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</Window>

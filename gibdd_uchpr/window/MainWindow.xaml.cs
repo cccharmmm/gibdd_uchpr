@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace gibdd_uchpr
+namespace gibdd_uchpr.window
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -23,6 +23,13 @@ namespace gibdd_uchpr
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void loginButton(object sender, RoutedEventArgs e)
+        {
+            Authorization auth = new Authorization();
+            auth.Show();
+            this.Close();
         }
     }
 }
