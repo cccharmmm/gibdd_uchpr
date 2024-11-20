@@ -25,7 +25,40 @@ namespace gibdd_uchpr.window
         {
             InitializeComponent();
             Loaded += Fine_Loaded;
+            LoadDriver();
+            LoadCar();
+            LoadState();
 
+
+        }
+        private void LoadDriver()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.Drivers.ToList();
+                DriverComboBox.ItemsSource = types;
+            }
+        }
+        private void LoadCar()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.Cars.ToList();
+                CarComboBox.ItemsSource = types;
+            }
+        }
+        private void LoadState()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.StateOfFines.ToList();
+                StateComboBox.ItemsSource = types;
+            }
+        }
+
+        public void Update_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateFineList();
         }
         private void UpdateFineList()
         {

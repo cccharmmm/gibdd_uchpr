@@ -56,29 +56,29 @@
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <Border x:Name="border" Background="{TemplateBinding Background}"
-                   BorderBrush="{TemplateBinding BorderBrush}"
-                   BorderThickness="{TemplateBinding BorderThickness}"
-                   CornerRadius="5"/>
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              CornerRadius="5"/>
                             <TextBlock x:Name="placeholder" Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                      Foreground="LightGray"
-                      Margin="5,0,0,0"
-                      VerticalAlignment="Center"
-                      IsHitTestVisible="False"
-                      Visibility="Collapsed"/>
+                 Foreground="LightGray"
+                 Margin="5,0,0,0"
+                 VerticalAlignment="Center"
+                 IsHitTestVisible="False"
+                 Visibility="Collapsed"/>
                             <ToggleButton x:Name="toggleButton" Style="{StaticResource ComboBoxToggleButton}" Grid.Column="2" Focusable="false"
-                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                         ClickMode="Press"/>
+                    IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                    ClickMode="Press"/>
                             <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}"
-                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                             Margin="3,3,23,3"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Left"/>
+                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"/>
                             <TextBox x:Name="PART_EditableTextBox" Style="{StaticResource ComboBoxTextBox}" HorizontalAlignment="Left"
-                    VerticalAlignment="Center" Margin="3,3,23,3" Focusable="True"
-                    Background="Transparent" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+               VerticalAlignment="Center" Margin="5,0,0,0" Focusable="True"
+               Background="Transparent" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
                             <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False"
-                  PopupAnimation="Slide">
+             PopupAnimation="Slide">
                                 <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder" Background="White" BorderBrush="Gray" BorderThickness="1"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
@@ -128,7 +128,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
                             <ContentPresenter HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center"/>
+                                         VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -152,13 +152,13 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border 
-                         Background="{TemplateBinding Background}" 
-                         BorderBrush="{TemplateBinding BorderBrush}" 
-                         BorderThickness="{TemplateBinding BorderThickness}">
+                    Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}">
                             <Border CornerRadius="3">
                                 <ContentPresenter 
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
                             </Border>
                         </Border>
                     </ControlTemplate>
@@ -184,20 +184,20 @@
                     <ControlTemplate TargetType="TextBox">
                         <Grid>
                             <Border x:Name="border" 
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5"/>
+                       Background="{TemplateBinding Background}"
+                       BorderBrush="{TemplateBinding BorderBrush}"
+                       BorderThickness="{TemplateBinding BorderThickness}"
+                       CornerRadius="5"/>
                             <TextBlock x:Name="placeholder" 
-                               Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                               Foreground="LightGray"
-                               Margin="5,0,0,0"
-                               VerticalAlignment="Center"
-                               IsHitTestVisible="False"
-                               Visibility="Collapsed"/>
+                          Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                          Foreground="LightGray"
+                          Margin="5,0,0,0"
+                          VerticalAlignment="Center"
+                          IsHitTestVisible="False"
+                          Visibility="Collapsed"/>
                             <ScrollViewer x:Name="PART_ContentHost" 
-                                  VerticalAlignment="Center" 
-                                  HorizontalAlignment="Left"/>
+                             VerticalAlignment="Center" 
+                             HorizontalAlignment="Left"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Text" Value="">
@@ -219,7 +219,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </Window.Resources>
     <Grid>
         <DockPanel>
@@ -298,7 +297,8 @@
             <ComboBox x:Name="DriverComboBox" 
                       Margin="0 10 0 0" 
                       Tag="Водитель" 
-                      Style="{StaticResource PlaceholderComboBoxStyle}"/>
+                      Style="{StaticResource PlaceholderComboBoxStyle}"
+                      DisplayMemberPath="last_name"/>
             <TextBox x:Name="VINTextBox"  
                      Margin="0 10 0 0" 
                      Style="{StaticResource PlaceholderTextBoxStyle}" 
@@ -306,7 +306,8 @@
             <ComboBox x:Name="ManufacturerComboBox" 
                       Margin="0 10 0 0"  
                       Tag="Производитель" 
-                      Style="{StaticResource PlaceholderComboBoxStyle}"/>
+                      Style="{StaticResource PlaceholderComboBoxStyle}"
+                      DisplayMemberPath="name"/>
             <TextBox x:Name="ModelTextBox"  
                      Margin="0 10 0 0" 
                      Style="{StaticResource PlaceholderTextBoxStyle}" 
@@ -325,26 +326,30 @@
             <ComboBox x:Name="ColorComboBox" 
                     Margin="0 10 0 0"  
                     Tag="Цвет" 
-                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+                    Style="{StaticResource PlaceholderComboBoxStyle}"
+                    DisplayMemberPath="color_code"/>
             <ComboBox x:Name="EngineComboBox" 
                     Margin="0 10 0 0"  
                     Tag="Двигатель" 
-                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+                    Style="{StaticResource PlaceholderComboBoxStyle}"
+                    DisplayMemberPath="name_ru"/>
             <ComboBox x:Name="TypeOfDriveComboBox" 
                     Margin="0 10 0 0"  
                     Tag="Привод" 
-                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+                    Style="{StaticResource PlaceholderComboBoxStyle}"
+                    DisplayMemberPath="name"/>
             <ComboBox x:Name="RegionComboBox" 
                     Margin="0 10 0 10"  
                     Tag="Регион" 
-                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+                    Style="{StaticResource PlaceholderComboBoxStyle}"
+                    DisplayMemberPath="code"/>
             <DockPanel HorizontalAlignment="Center">
-            <Button Content="Создать" 
+                <Button Content="Создать" 
                     Background="LightGreen" 
                     Style="{StaticResource ActionButtonStyle}"  
                     Margin="0 5 0 0" 
                     Width="70"/>
-            <Button Content="Изменить" 
+                <Button Content="Изменить" 
                     Background="LightGreen" 
                     Style="{StaticResource ActionButtonStyle}"  
                     Margin="10 5 0 0" 
@@ -355,6 +360,5 @@
                     Style="{StaticResource ActionButtonStyle}"  
                     Margin="0 5 0 0" Width="70"/>
         </StackPanel>
-       
     </Grid>
 </Window>

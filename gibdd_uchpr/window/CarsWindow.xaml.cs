@@ -25,6 +25,12 @@ namespace gibdd_uchpr.window
         {
             InitializeComponent();
             Loaded += Car_Loaded;
+            LoadRegion();
+            LoadTypeOfDrive();
+            LoadEngine();
+            LoadColor();
+            LoadManufacturer();
+            LoadDriver();
         }
 
         private void UpdateCarList()
@@ -41,6 +47,54 @@ namespace gibdd_uchpr.window
                     .ToList();
 
                 CarListBox.ItemsSource = cars;
+            }
+        }
+        private void LoadDriver()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.Drivers.ToList();
+                DriverComboBox.ItemsSource = types;
+            }
+        }
+        private void LoadManufacturer()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.ManufacturerType.ToList();
+                ManufacturerComboBox.ItemsSource = types;
+            }
+        }
+        private void LoadColor()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.CarColors.ToList();
+                ColorComboBox.ItemsSource = types;
+            }
+        }
+        private void LoadEngine()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.EngineTypes.ToList();
+                EngineComboBox.ItemsSource = types;
+            }
+        }
+        private void LoadTypeOfDrive()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.TypeOfDrive.ToList();
+                TypeOfDriveComboBox.ItemsSource = types;
+            }
+        }
+        private void LoadRegion()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.RegionCodes.ToList();
+                RegionComboBox.ItemsSource = types;
             }
         }
         private void Car_Loaded(object sender, RoutedEventArgs e)

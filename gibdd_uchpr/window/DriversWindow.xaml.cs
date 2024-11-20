@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using Microsoft.Win32;
 
 namespace gibdd_uchpr.window
 {
@@ -25,6 +27,11 @@ namespace gibdd_uchpr.window
         {
             InitializeComponent();
             Loaded += Driver_Loaded;
+            LoadCompanyJob();
+        }
+        public void Update_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateDriverList();
         }
         private void UpdateDriverList()
         {
@@ -79,5 +86,31 @@ namespace gibdd_uchpr.window
             driversWindow.Show();
             this.Close();
         }
+        private void LoadCompanyJob()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.CompanyJob.ToList();
+                JobComboBox.ItemsSource = types;
+            }
+        }
+        //private void photoButton(object sender, RoutedEventArgs e)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog();
+        //    openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.GIF; *.PNG)| *.BMP; *.JPG; *.GIF; *.PNG | All files(*.*) | *.* ";
+        //    if ((bool)openFileDialog.ShowDialog())
+        //    {
+        //        try
+        //        {
+        //            this.im = File.ReadAllBytes(openFileDialog.FileName);
+        //            lb1.Visibility = Visibility.Visible;
+        //        }
+        //        catch
+        //        {
+        //            lb1.Visibility = Visibility.Visible;
+        //            lb1.Content = "Ошибка";
+        //        }
+        //    }
+        //}
     }
 }

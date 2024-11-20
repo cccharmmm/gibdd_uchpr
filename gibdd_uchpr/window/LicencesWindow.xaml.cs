@@ -25,6 +25,19 @@ namespace gibdd_uchpr.window
         {
             InitializeComponent();
             Loaded += License_Loaded;
+            LoadDriver();
+        }
+        private void LoadDriver()
+        {
+            using (var context = new gibddEntities())
+            {
+                var types = context.Drivers.ToList();
+                DriverComboBox.ItemsSource = types;
+            }
+        }
+        public void Update_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateLicenseList();
         }
         private void UpdateLicenseList()
         {
