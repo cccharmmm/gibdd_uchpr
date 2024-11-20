@@ -53,8 +53,7 @@ namespace gibdd_uchpr.window
             {
                 failedAttempts = 0; 
                 lockEndTime = null;
-                MessageBox.Show("Добро пожаловать!");
-
+                MessageBox.Show("Добро пожаловать! Авторизация прошла успешно.");
                 DriversWindow driversWindow = new DriversWindow();
                 driversWindow.Show();
                 this.Close(); 

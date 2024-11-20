@@ -27,6 +27,7 @@ namespace gibdd_uchpr.window
 
         private void loginButton(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Добро пожаловать!");
             Authorization auth = new Authorization();
             auth.Show();
             this.Close();

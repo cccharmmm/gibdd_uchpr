@@ -25,24 +25,28 @@ namespace gibdd_uchpr.window
         }
         private void driversButton(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Вы перешли на окно «Водители»");
             DriversWindow driversWindow = new DriversWindow();
             driversWindow.Show();
             this.Close();
         }
         private void finesButton(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Вы перешли на окно «Штрафы»");
             FinesWindow finesWindow = new FinesWindow();
             finesWindow.Show();
             this.Close();
         }
         private void licencesButton(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Вы перешли на окно «Водительское удостоверениев»");
             LicencesWindow licencesWindow = new LicencesWindow();
             licencesWindow.Show();
             this.Close();
         }
         private void exitButton(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Вы вышли из системы");
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();

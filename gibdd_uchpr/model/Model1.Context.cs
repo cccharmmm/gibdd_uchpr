@@ -13,10 +13,10 @@ namespace gibdd_uchpr.model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class gibddEntities1 : DbContext
+    public partial class gibddEntities2 : DbContext
     {
-        public gibddEntities1()
-            : base("name=gibddEntities1")
+        public gibddEntities2()
+            : base("name=gibddEntities2")
         {
         }
     
