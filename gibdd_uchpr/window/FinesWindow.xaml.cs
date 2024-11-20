@@ -52,6 +52,8 @@ namespace gibdd_uchpr.window
             mainWindow.Show();
             this.Close();
         }
+
+        
     }
 
 }

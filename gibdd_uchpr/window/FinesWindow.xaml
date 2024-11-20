@@ -61,10 +61,10 @@
                         Style="{StaticResource NavButtonStyle}" 
                         Click="driversButton" Width="80"/>
                 <Button Content="Машины" 
-                        Style="{StaticResource NavButtonStyle}" Width="75" />
+                        Style="{StaticResource NavButtonStyle}" Width="75" Click="carsButton" />
                 <Button Content="Штрафы" 
                         Style="{StaticResource NavButtonStyle}" 
-                        Click="finesButton" Width="70"/>
+                        Width="70"/>
                 <Button Content="Водительское удостоверение" 
                         Style="{StaticResource NavButtonStyle}" 
                         Click="licencesButton" Width="218"/>

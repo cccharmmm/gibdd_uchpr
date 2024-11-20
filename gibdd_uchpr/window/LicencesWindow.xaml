@@ -13,7 +13,7 @@
         MaxHeight="550"
         MaxWidth="900" WindowStartupLocation="CenterScreen" 
         Icon="/images/logotype/gibdd_logo.png">
-    <Window.Resources>
+      <Window.Resources>
         <Style x:Key="NavButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="36"/>
             <Setter Property="Padding" Value="10"/>
@@ -67,7 +67,7 @@
                         Click="finesButton" Width="70"/>
                 <Button Content="Водительское удостоверение" 
                         Style="{StaticResource NavButtonStyle}" 
-                        Click="licencesButton" Width="218"/>
+                        Width="218"/>
                 <Button Content="Выйти" 
                         Style="{StaticResource NavButtonStyle}" 
                         Margin="70 0 0 0"

@@ -51,5 +51,13 @@ namespace gibdd_uchpr.window
             mainWindow.Show();
             this.Close();
         }
+
+        private void carsButton(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Вы перешли на окно «Машины»");
+            CarsWindow carsWindow = new CarsWindow();
+            carsWindow.Show();
+            this.Close();
+        }
     }
 }
