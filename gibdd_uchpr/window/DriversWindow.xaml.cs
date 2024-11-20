@@ -1,9 +1,11 @@
-﻿using System;
+﻿using gibdd_uchpr.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -22,8 +24,24 @@ namespace gibdd_uchpr.window
         public DriversWindow()
         {
             InitializeComponent();
+            Loaded += Driver_Loaded;
         }
-       
+        private void UpdateDriverList()
+        {
+            using (var context = new gibddEntities())
+            {
+                var drivers = context.Drivers
+                    .Include(d => d.CompanyJob)
+                    .ToList();
+
+                DriverListBox.ItemsSource = drivers;
+            }
+        }
+        private void Driver_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateDriverList();
+        }
+
         private void finesButton(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Вы перешли на окно «Штрафы»");

@@ -198,6 +198,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classes\ImagePathConverter.cs" />
     <Compile Include="model\CarColors.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

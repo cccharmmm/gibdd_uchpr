@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:gibdd_uchpr.window"
         mc:Ignorable="d"
         Title="Машины" 
-        Height="450" 
+        Height="500" 
         Width="800"
         MinHeight="350"
         MinWidth="700"
@@ -15,6 +15,130 @@
         WindowStartupLocation="CenterScreen" 
         Icon="/images/logotype/gibdd_logo.png">
     <Window.Resources>
+        <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="1">
+                            <Path x:Name="Arrow" VerticalAlignment="Center" HorizontalAlignment="Right" Data="M 0 0 L 4 4 L 8 0 Z" Fill="Black"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Arrow" Property="Fill" Value="#FF569DE5"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Arrow" Property="Fill" Value="#FF2454E5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="3,3,23,3"/>
+        </Style>
+        <Style x:Key="PlaceholderComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="border" Background="{TemplateBinding Background}"
+                   BorderBrush="{TemplateBinding BorderBrush}"
+                   BorderThickness="{TemplateBinding BorderThickness}"
+                   CornerRadius="5"/>
+                            <TextBlock x:Name="placeholder" Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                      Foreground="LightGray"
+                      Margin="5,0,0,0"
+                      VerticalAlignment="Center"
+                      IsHitTestVisible="False"
+                      Visibility="Collapsed"/>
+                            <ToggleButton x:Name="toggleButton" Style="{StaticResource ComboBoxToggleButton}" Grid.Column="2" Focusable="false"
+                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                         ClickMode="Press"/>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}"
+                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                             Margin="3,3,23,3"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Left"/>
+                            <TextBox x:Name="PART_EditableTextBox" Style="{StaticResource ComboBoxTextBox}" HorizontalAlignment="Left"
+                    VerticalAlignment="Center" Margin="3,3,23,3" Focusable="True"
+                    Background="Transparent" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False"
+                  PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Foreground" Value="Gray"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#A5DCFD"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="False">
+                                <Setter Property="Foreground" Value="Gray"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#ECEFF1"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="NavButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="36"/>
             <Setter Property="Padding" Value="10"/>
@@ -46,6 +170,56 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="PlaceholderTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border x:Name="border" 
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"/>
+                            <TextBlock x:Name="placeholder" 
+                               Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                               Foreground="LightGray"
+                               Margin="5,0,0,0"
+                               VerticalAlignment="Center"
+                               IsHitTestVisible="False"
+                               Visibility="Collapsed"/>
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="Left"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Foreground" Value="Gray"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#A5DCFD"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="False">
+                                <Setter Property="Foreground" Value="Gray"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
     <Grid>
         <DockPanel>
@@ -72,12 +246,115 @@
                         Click="licencesButton" Width="218"/>
                 <Button Content="Выйти" 
                         Style="{StaticResource NavButtonStyle}" 
-                        Margin="70 0 0 0"
+                        Margin="50 0 0 0"
                         Click="exitButton" Width="53"/>
             </StackPanel>
-
-            <!-- Основной контент -->
             <ContentControl x:Name="MainContent" Margin="15"/>
         </DockPanel>
+        <StackPanel Orientation="Horizontal" 
+                    Margin="0 68 40 40" 
+                    HorizontalAlignment="Right" 
+                    Height="50" 
+                    VerticalAlignment="Top">
+            <Button Content="Поиск" 
+                    Margin="10 10 0 0" 
+                    Style="{StaticResource ActionButtonStyle}" 
+                    Width="120" 
+                    Background="LightGray"/>
+            <Button Content="Обновить" 
+                    Margin="10 10 0 0" 
+                    Style="{StaticResource ActionButtonStyle}" 
+                    Width="90"
+                    Background="LightGray"
+                    Click="Update_Click"/>
+        </StackPanel>
+        <ListBox x:Name="CarListBox" 
+                 HorizontalAlignment="Right" 
+                 Width="450" 
+                 Height="280" 
+                 Margin="0 90 40 20">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}" Width="50" />
+                        <TextBlock Text="{Binding Drivers.last_name}" Width="100" />
+                        <TextBlock Text="{Binding VIN}" Width="170" />
+                        <TextBlock Text="{Binding ManufacturerType.name}" Width="100" />
+                        <TextBlock Text="{Binding model}" Width="170" />
+                        <TextBlock Text="{Binding year}" Width="70" />
+                        <TextBlock Text="{Binding weight}" Width="70" />
+                        <TextBlock Text="{Binding CarColors.color_code}" Width="70"/>
+                        <TextBlock Text="{Binding EngineTypes.name_ru}" Width="100" />
+                        <TextBlock Text="{Binding TypeOfDrive.name}" Width="100" />
+                        <TextBlock Text="{Binding RegionCodes.code}" Width="50" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Vertical" 
+                    Margin="20 70 20 20" 
+                    HorizontalAlignment="Left" 
+                    Width="250">
+            <ComboBox x:Name="DriverComboBox" 
+                      Margin="0 10 0 0" 
+                      Tag="Водитель" 
+                      Style="{StaticResource PlaceholderComboBoxStyle}"/>
+            <TextBox x:Name="VINTextBox"  
+                     Margin="0 10 0 0" 
+                     Style="{StaticResource PlaceholderTextBoxStyle}" 
+                     Tag="VIN-номер" MaxLength="50"/>
+            <ComboBox x:Name="ManufacturerComboBox" 
+                      Margin="0 10 0 0"  
+                      Tag="Производитель" 
+                      Style="{StaticResource PlaceholderComboBoxStyle}"/>
+            <TextBox x:Name="ModelTextBox"  
+                     Margin="0 10 0 0" 
+                     Style="{StaticResource PlaceholderTextBoxStyle}" 
+                     Tag="Модель" 
+                     MaxLength="12"/>
+            <TextBox x:Name="YearTextBox"  
+                     Margin="0 10 0 0" 
+                     Style="{StaticResource PlaceholderTextBoxStyle}" 
+                     Tag="Год выпуска" 
+                     MaxLength="40"/>
+            <TextBox x:Name="WeightTextBox"  
+                     Margin="0 10 0 0" 
+                     Style="{StaticResource PlaceholderTextBoxStyle}" 
+                     Tag="Вес" 
+                     MaxLength="40"/>
+            <ComboBox x:Name="ColorComboBox" 
+                    Margin="0 10 0 0"  
+                    Tag="Цвет" 
+                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+            <ComboBox x:Name="EngineComboBox" 
+                    Margin="0 10 0 0"  
+                    Tag="Двигатель" 
+                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+            <ComboBox x:Name="TypeOfDriveComboBox" 
+                    Margin="0 10 0 0"  
+                    Tag="Привод" 
+                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+            <ComboBox x:Name="RegionComboBox" 
+                    Margin="0 10 0 10"  
+                    Tag="Регион" 
+                    Style="{StaticResource PlaceholderComboBoxStyle}"/>
+            <DockPanel HorizontalAlignment="Center">
+            <Button Content="Создать" 
+                    Background="LightGreen" 
+                    Style="{StaticResource ActionButtonStyle}"  
+                    Margin="0 5 0 0" 
+                    Width="70"/>
+            <Button Content="Изменить" 
+                    Background="LightGreen" 
+                    Style="{StaticResource ActionButtonStyle}"  
+                    Margin="10 5 0 0" 
+                    Width="70"/>
+            </DockPanel>
+            <Button Content="Удалить" 
+                    Background="PaleVioletRed" 
+                    Style="{StaticResource ActionButtonStyle}"  
+                    Margin="0 5 0 0" Width="70"/>
+        </StackPanel>
+       
     </Grid>
 </Window>

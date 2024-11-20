@@ -1,9 +1,11 @@
-﻿using System;
+﻿using gibdd_uchpr.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -22,7 +24,26 @@ namespace gibdd_uchpr.window
         public FinesWindow()
         {
             InitializeComponent();
+            Loaded += Fine_Loaded;
 
+        }
+        private void UpdateFineList()
+        {
+            using (var context = new gibddEntities())
+            {
+                var fines = context.Fines
+                    .Include(f => f.Drivers)
+                    .Include(f => f.Cars) 
+                    .Include(f => f.StateOfFines) 
+                    .ToList();
+
+                FineListBox.ItemsSource = fines;
+            }
+        }
+
+        private void Fine_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateFineList();
         }
         private void driversButton(object sender, RoutedEventArgs e)
         {

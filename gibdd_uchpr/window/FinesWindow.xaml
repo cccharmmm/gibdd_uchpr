@@ -70,10 +70,27 @@
                         Click="licencesButton" Width="218"/>
                 <Button Content="Выйти" 
                         Style="{StaticResource NavButtonStyle}" 
-                        Margin="70 0 0 0"
+                        Margin="50 0 0 0"
                         Click="exitButton" Width="53"/>
             </StackPanel>
             <ContentControl x:Name="MainContent" Margin="15"/>
         </DockPanel>
+        <ListBox x:Name="FineListBox" 
+           HorizontalAlignment="Right" 
+           Width="450" 
+           Height="280" 
+           Margin="0 90 40 20">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}" Width="50" />
+                        <TextBlock Text="{Binding Drivers.last_name}" Width="70" />
+                        <TextBlock Text="{Binding Cars.VIN}" Width="170" />
+                        <TextBlock Text="{Binding StateOfFines.name}" Width="100" />
+                        <TextBlock Text="{Binding cost}" Width="70" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

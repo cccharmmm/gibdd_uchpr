@@ -178,15 +178,11 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "gibdd.dbo.Users" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="log_in" />
-            <PropertyRef Name="passwword" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="log_in" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="passwword" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -443,13 +439,7 @@
           <EntitySet Name="StateOfLicenses" EntityType="Self.StateOfLicenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfDrive" EntityType="Self.TypeOfDrive" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Users].[id] AS [id], 
-    [Users].[log_in] AS [log_in], 
-    [Users].[passwword] AS [passwword]
-    FROM [dbo].[Users] AS [Users]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CarColors_ColorNameTypes" Association="Self.FK_CarColors_ColorNameTypes">
             <End Role="ColorNameTypes" EntitySet="ColorNameTypes" />
             <End Role="CarColors" EntitySet="CarColors" />
@@ -724,10 +714,8 @@
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="log_in" />
-            <PropertyRef Name="passwword" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="log_in" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="passwword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
@@ -941,7 +929,7 @@
           <End Role="Categories" Type="Self.Categories" Multiplicity="*" />
           <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="gibddEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="gibddEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CarColors" EntityType="Self.CarColors" />
           <EntitySet Name="Cars" EntityType="Self.Cars" />
           <EntitySet Name="Categories" EntityType="Self.Categories" />
@@ -1030,7 +1018,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище gibddModelContainer" CdmEntityContainer="gibddEntities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище gibddModelContainer" CdmEntityContainer="gibddEntities">
           <EntitySetMapping Name="CarColors">
             <EntityTypeMapping TypeName="gibddModel.CarColors">
               <MappingFragment StoreEntitySet="CarColors">

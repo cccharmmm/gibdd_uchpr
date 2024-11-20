@@ -1,10 +1,12 @@
-﻿using System;
+﻿using gibdd_uchpr.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Data.Entity;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -22,6 +24,32 @@ namespace gibdd_uchpr.window
         public CarsWindow()
         {
             InitializeComponent();
+            Loaded += Car_Loaded;
+        }
+
+        private void UpdateCarList()
+        {
+            using (var context = new gibddEntities())
+            {
+                var cars = context.Cars
+                    .Include(c => c.Drivers)           
+                    .Include(c => c.ManufacturerType)     
+                    .Include(c => c.CarColors)            
+                    .Include(c => c.EngineTypes)       
+                    .Include(c => c.TypeOfDrive)       
+                    .Include(c => c.RegionCodes)           
+                    .ToList();
+
+                CarListBox.ItemsSource = cars;
+            }
+        }
+        private void Car_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateCarList();
+        }
+        public void Update_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateCarList();
         }
         private void driversButton(object sender, RoutedEventArgs e)
         {

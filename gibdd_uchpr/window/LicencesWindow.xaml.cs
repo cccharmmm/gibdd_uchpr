@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using gibdd_uchpr.model;
 
 namespace gibdd_uchpr.window
 {
@@ -22,6 +24,23 @@ namespace gibdd_uchpr.window
         public LicencesWindow()
         {
             InitializeComponent();
+            Loaded += License_Loaded;
+        }
+        private void UpdateLicenseList()
+        {
+            using (var context = new gibddEntities())
+            {
+                var fines = context.Licenses
+                    .Include(l => l.Drivers)
+                    .ToList();
+
+                LicenseListBox.ItemsSource = fines;
+            }
+        }
+
+        private void License_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateLicenseList();
         }
         private void driversButton(object sender, RoutedEventArgs e)
         {
