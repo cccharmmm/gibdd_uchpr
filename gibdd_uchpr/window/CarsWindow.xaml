@@ -286,7 +286,7 @@
                         <TextBlock Text="{Binding CarColors.color_code}" Width="70"/>
                         <TextBlock Text="{Binding EngineTypes.name_ru}" Width="100" />
                         <TextBlock Text="{Binding TypeOfDrive.name}" Width="100" />
-                        <TextBlock Text="{Binding RegionCodes.code}" Width="50" />
+                        <TextBlock Text="{Binding RegionCodes.code}" Width="100" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
