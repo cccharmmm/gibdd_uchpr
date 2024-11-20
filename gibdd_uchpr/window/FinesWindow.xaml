@@ -48,35 +48,32 @@
     </Window.Resources>
     <Grid>
         <DockPanel>
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Top" 
+            <StackPanel DockPanel.Dock="Top" 
                         Orientation="Horizontal"  
-                        Background="LightBlue">
-                    <Button Content="Водители" 
-                        Style="{StaticResource NavButtonStyle}"
-                        Margin="165 0 20 0" 
-                        Click="driversButton"/>
-                    <Button Content="Машины" 
+                        Background="LightBlue"
+                        VerticalAlignment="Center">
+                <Image Source="/images/logotype/gibdd_logo.png" 
+                       Width="75" 
+                       Height="50" 
+                       Margin="10 0 20 0" 
+                       VerticalAlignment="Center"/>
+                <Button Content="Водители" 
                         Style="{StaticResource NavButtonStyle}" 
-                        Click="carsButton"/>
-                    <Button Content="Штрафы" 
-                        Style="{StaticResource NavButtonStyle}"/>
-                    <Button Content="Водительское удостоверение" 
+                        Click="driversButton" Width="80"/>
+                <Button Content="Машины" 
+                        Style="{StaticResource NavButtonStyle}" Width="75" />
+                <Button Content="Штрафы" 
                         Style="{StaticResource NavButtonStyle}" 
-                        Click="licencesButton"/>
-                    <Button Content="Выйти" 
+                        Click="finesButton" Width="70"/>
+                <Button Content="Водительское удостоверение" 
+                        Style="{StaticResource NavButtonStyle}" 
+                        Click="licencesButton" Width="218"/>
+                <Button Content="Выйти" 
                         Style="{StaticResource NavButtonStyle}" 
                         Margin="70 0 0 0"
-                        Click="exitButton"/>
-                </StackPanel>
-                <ContentControl x:Name="MainContent" Margin="15"/>
-                <Image Source="/images/logotype/gibdd_logo.png" 
-                       Width="150" 
-                       Height="150" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Top" 
-                       Margin="0 80 0 10"/>
-            </DockPanel>
+                        Click="exitButton" Width="53"/>
+            </StackPanel>
+            <ContentControl x:Name="MainContent" Margin="15"/>
         </DockPanel>
     </Grid>
 </Window>
