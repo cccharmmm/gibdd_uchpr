@@ -170,6 +170,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="window\ManufacturerTypeWindow.xaml.cs">
+      <DependentUpon>ManufacturerTypeWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="window\Authorization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +182,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="window\DriversWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\EditCarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\EditDriverWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,6 +288,12 @@
     <Compile Include="window\DriversWindow.xaml.cs">
       <DependentUpon>DriversWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\EditCarWindow.xaml.cs">
+      <DependentUpon>EditCarWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="window\EditDriverWindow.xaml.cs">
+      <DependentUpon>EditDriverWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\FinesWindow.xaml.cs">
       <DependentUpon>FinesWindow.xaml</DependentUpon>
     </Compile>
@@ -287,6 +304,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="window\ManufacturerTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Data.Entity;
 using gibdd_uchpr.model;
+using System.ComponentModel;
 
 namespace gibdd_uchpr.window
 {
@@ -14,6 +15,37 @@ namespace gibdd_uchpr.window
             Loaded += License_Loaded;
             LoadDriver();
         }
+   
+
+        //private void showCategories_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var selectedLicense = LicenseListBox.SelectedItem as Licenses;
+        //    if (selectedLicense == null)
+        //    {
+        //        MessageBox.Show("Выберите ВУ для отображения его категорий");
+        //        return;
+        //    }
+
+        //    int licenseId = selectedLicense.id;
+
+        //    using (var context = new gibddEntities())
+        //    {
+        //        var categories = context.LicenseCategories
+        //            .Where(d => d.id == license_id)
+        //            .ToList();
+
+        //        if (demands.Count == 0)
+        //        {
+        //            MessageBox.Show("У выбранного клиента нет потребностей");
+        //            return;
+        //        }
+        //    }
+
+        //    ClientDemand clientDemandWindow = new ClientDemand(clientId);
+        //    clientDemandWindow.ShowDialog();
+
+        //}
+
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (LicenseListBox.SelectedItem == null)
@@ -172,6 +204,27 @@ namespace gibdd_uchpr.window
 
             using (var context = new gibddEntities())
             {
+                var driverId = (DriverComboBox.SelectedItem as Drivers)?.id ?? 0;
+
+                var existingLicenses = context.Licenses
+                    .Where(l => l.driver_id == driverId)
+                    .ToList();
+
+                foreach (var license in existingLicenses)
+                {
+                    if (DateTime.TryParseExact(license.license_date, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime existingLicenseDate) &&
+                        DateTime.TryParseExact(license.expire_date, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime existingExpireDate))
+                    {
+                        if ((licenseDate >= existingLicenseDate && licenseDate <= existingExpireDate) ||
+                            (expireDate >= existingLicenseDate && expireDate <= existingExpireDate))
+                        {
+                            MessageBox.Show("У водителя уже есть действующее ВУ в этот период. Пожалуйста, выберите другие даты.",
+                                            "Ошибка перекрытия дат", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                    }
+                }
+
                 try
                 {
                     var newLicense = new Licenses
@@ -180,7 +233,7 @@ namespace gibdd_uchpr.window
                         expire_date = ExpireDateTextBox.Text,
                         license_series = SeriesTextBox.Text,
                         license_number = NumberTextBox.Text,
-                        driver_id = (DriverComboBox.SelectedItem as Drivers)?.id ?? 0
+                        driver_id = driverId
                     };
 
                     context.Licenses.Add(newLicense);
@@ -196,6 +249,7 @@ namespace gibdd_uchpr.window
                 }
             }
         }
+
         private void LoadDriver()
         {
             using (var context = new gibddEntities())

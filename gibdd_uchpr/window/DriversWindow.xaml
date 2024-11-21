@@ -285,8 +285,8 @@
                         <TextBlock Text="{Binding passport_number}" Width="70" />
                         <TextBlock Text="{Binding address}" Width="170" />
                         <TextBlock Text="{Binding address_life}" Width="100" />
-                        <TextBlock Text="{Binding CompanyJob.job}" Width="150" />
-                        <TextBlock Text="{Binding phone}" Width="100" />
+                        <TextBlock Text="{Binding CompanyJob.company}" Width="150" />
+                        <TextBlock Text="{Binding phone}" Width="150" />
                         <TextBlock Text="{Binding email}" Width="150" />
                         <Image Source="{Binding photo, 
                             Converter={StaticResource ImagePathConverter}}" 
@@ -303,29 +303,29 @@
             <TextBox x:Name="NameTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Имя" MaxLength="20"/>
+                Tag="Имя*" MaxLength="20"/>
             <TextBox x:Name="LastNameTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Фамилия" MaxLength="20"/>
+                Tag="Фамилия*" MaxLength="20"/>
             <TextBox x:Name="MiddleNameTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Отчество" MaxLength="20"/>
+                Tag="Отчество*" MaxLength="20"/>
             <TextBox x:Name="SeriaTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Серия паспорта" 
+                Tag="Серия паспорта*" 
                 MaxLength="4"/>
             <TextBox x:Name="NumberTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Номер паспорта" 
+                Tag="Номер паспорта*" 
                 MaxLength="6"/>
             <TextBox x:Name="AddressTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Адрес регистрации" 
+                Tag="Адрес регистрации*" 
                 MaxLength="70"/>
             <TextBox x:Name="AddressLifeTextBox"  
                 Margin="0 10 0 0" 
@@ -340,12 +340,12 @@
             <TextBox x:Name="PhoneTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Телефон" 
+                Tag="Телефон*" 
                 MaxLength="11"/>
             <TextBox x:Name="EmailTextBox"  
                 Margin="0 10 0 0" 
                 Style="{StaticResource PlaceholderTextBoxStyle}" 
-                Tag="Почта" 
+                Tag="Почта*" 
                 MaxLength="40"/>
             <DockPanel HorizontalAlignment="Left">
                 <Button Content="Загрузить фото" 
@@ -373,7 +373,8 @@
                         Background="LightGreen" 
                         Style="{StaticResource ActionButtonStyle}"  
                         Margin="10 10 0 0" 
-                        Width="70"/>
+                        Width="70"
+                        Click="EditSelectedDriver"/>
             </DockPanel>
             <Button Content="Удалить" 
                     Background="PaleVioletRed" 

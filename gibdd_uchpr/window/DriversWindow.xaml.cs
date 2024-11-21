@@ -20,6 +20,19 @@ namespace gibdd_uchpr.window
             Loaded += Driver_Loaded;
             LoadCompanyJob();
         }
+        private void EditSelectedDriver(object sender, RoutedEventArgs e)
+        {
+            if (DriverListBox.SelectedItem is Drivers selectedDriver)
+            {
+                var editDriverWindow = new EditDriverWindow(selectedDriver);
+                editDriverWindow.ShowDialog();
+                UpdateDriverList();
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите водителя для редактирования.");
+            }
+        }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (DriverListBox.SelectedItem == null)

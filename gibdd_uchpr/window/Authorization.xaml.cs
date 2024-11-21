@@ -1,4 +1,5 @@
-﻿using System;
+﻿using gibdd_uchpr.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,9 +19,10 @@ namespace gibdd_uchpr.window
     public partial class Authorization : Window
     {
         private int failedAttempts = 0;
-        private DateTime? lockEndTime = null; 
-        private DispatcherTimer inactivityTimer; 
+        private DateTime? lockEndTime = null;
+        private DispatcherTimer inactivityTimer;
         private DateTime lastActivityTime;
+
         public Authorization()
         {
             InitializeComponent();
@@ -29,6 +31,7 @@ namespace gibdd_uchpr.window
             inactivityTimer.Tick += InactivityTimer_Tick;
             lastActivityTime = DateTime.Now;
         }
+
         private void loginButton(object sender, RoutedEventArgs e)
         {
             if (lockEndTime.HasValue && DateTime.Now < lockEndTime.Value)
@@ -46,24 +49,46 @@ namespace gibdd_uchpr.window
                 return;
             }
 
-            if (login == "inspector" && password == "inspector")
+            using (var context = new gibddEntities())
             {
-                failedAttempts = 0; 
-                lockEndTime = null;
-                MessageBox.Show("Добро пожаловать! Авторизация прошла успешно.");
-                DriversWindow driversWindow = new DriversWindow();
-                driversWindow.Show();
-                this.Close(); 
-            }
-            else
-            {
-                failedAttempts++;
-                MessageBox.Show("Неверный логин или пароль!");
+                var user = context.Users
+                    .FirstOrDefault(u => u.log_in == login && u.passwword == password);
 
-                if (failedAttempts >= 3)
+                if (user == null)
                 {
-                    lockEndTime = DateTime.Now.AddMinutes(1); 
-                    MessageBox.Show("Слишком много неудачных попыток. Попробуйте позже.");
+                    failedAttempts++;
+                    MessageBox.Show("Неверный логин или пароль!");
+
+                    if (failedAttempts >= 3)
+                    {
+                        lockEndTime = DateTime.Now.AddMinutes(1);
+                        MessageBox.Show("Слишком много неудачных попыток. Попробуйте позже.");
+                    }
+
+                    return;
+                }
+
+                if (user.log_in == "inspector" && user.passwword == "inspector")
+                {
+                    failedAttempts = 0;
+                    lockEndTime = null;
+                    MessageBox.Show("Добро пожаловать, Инспектор!");
+                    DriversWindow driversWindow = new DriversWindow();
+                    driversWindow.Show();
+                    this.Close();
+                }
+                else if (user.log_in == "admin" && user.passwword == "admin")
+                {
+                    failedAttempts = 0;
+                    lockEndTime = null;
+                    MessageBox.Show("Добро пожаловать, Администратор!");
+                    ManufacturerTypeWindow adminWindow = new ManufacturerTypeWindow();
+                    adminWindow.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Неизвестная роль.");
                 }
             }
         }
@@ -86,6 +111,7 @@ namespace gibdd_uchpr.window
         {
             inactivityTimer.Start();
         }
+
         private void backButton(object sender, RoutedEventArgs e)
         {
             MainWindow mW = new MainWindow();

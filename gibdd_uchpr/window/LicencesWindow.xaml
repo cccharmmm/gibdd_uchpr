@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:gibdd_uchpr.window"
         mc:Ignorable="d"
         Title="Водительское удостоверение" 
-        Height="450" 
+        Height="490" 
         Width="800"
         MinHeight="350"
         MinWidth="700"
@@ -249,7 +249,7 @@
             <ContentControl x:Name="MainContent" Margin="15"/>
         </DockPanel>
         <StackPanel Orientation="Horizontal" 
-            Margin="0 60 40 40" 
+            Margin="0 65 40 40" 
             HorizontalAlignment="Right" 
             Height="50" 
             VerticalAlignment="Top">
@@ -270,7 +270,7 @@
                 HorizontalAlignment="Right" 
                 Width="450" 
                 Height="280" 
-                Margin="0 110 40 20">
+                Margin="0 90 40 20">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -279,11 +279,25 @@
                         <TextBlock Text="{Binding expire_date}" Width="70" />
                         <TextBlock Text="{Binding license_series}" Width="70" />
                         <TextBlock Text="{Binding license_number}" Width="70" />
-                        <TextBlock Text="{Binding Drivers.name}" Width="70" />
+                        <TextBlock Text="{Binding Drivers.last_name}" Width="70" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">
+            <Button Content="Отобразить категории ВУ" 
+                    Margin="0 5 40 15" 
+                    Style="{StaticResource ActionButtonStyle}" 
+                    Width="180"
+                    Background="LightGray"/>
+            <Button Content="Просмотреть историю ВУ" 
+                    Margin="-25 5 40 15" 
+        Style="{StaticResource ActionButtonStyle}" 
+        Width="180"
+        Background="LightGray"/>
+        </StackPanel>
         <StackPanel Orientation="Vertical" 
                     Margin="20 70 20 20" 
                     HorizontalAlignment="Left" 

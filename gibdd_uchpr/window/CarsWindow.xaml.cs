@@ -19,6 +19,19 @@ namespace gibdd_uchpr.window
             LoadManufacturer();
             LoadDriver();
         }
+        private void EditSelectedCar(object sender, RoutedEventArgs e)
+        {
+            if (CarListBox.SelectedItem is Cars selectedCar)
+            {
+                var editCarWindow = new EditCarWindow(selectedCar);
+                editCarWindow.ShowDialog();
+                UpdateCarList();
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите машину для редактирования.");
+            }
+        }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (CarListBox.SelectedItem == null)
