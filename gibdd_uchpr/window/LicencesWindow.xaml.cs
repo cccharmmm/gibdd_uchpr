@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Data.Entity;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using gibdd_uchpr.model;
 
 namespace gibdd_uchpr.window
@@ -26,6 +16,34 @@ namespace gibdd_uchpr.window
             InitializeComponent();
             Loaded += License_Loaded;
             LoadDriver();
+        }
+        private void CreateLicense_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new gibddEntities())
+            {
+                try
+                {
+                    var newLicense = new Licenses
+                    {
+                        license_date = LicenseDateTextBox.Text,
+                        expire_date = ExpireDateTextBox.Text,
+                        license_series = SeriesTextBox.Text,
+                        license_number = NumberTextBox.Text,
+                        driver_id = (DriverComboBox.SelectedItem as Drivers)?.id ?? 0
+                    };
+
+                    context.Licenses.Add(newLicense);
+                    context.SaveChanges();
+
+                    UpdateLicenseList();
+
+                    MessageBox.Show("ВУ успешно добавлено!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при добавлении ВУ: {ex.Message}\n{ex.InnerException}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
         private void LoadDriver()
         {
@@ -43,11 +61,12 @@ namespace gibdd_uchpr.window
         {
             using (var context = new gibddEntities())
             {
-                var fines = context.Licenses
+                var licences = context.Licenses
                     .Include(l => l.Drivers)
+                    .OrderBy(l => l.id)
                     .ToList();
 
-                LicenseListBox.ItemsSource = fines;
+                LicenseListBox.ItemsSource = licences;
             }
         }
 

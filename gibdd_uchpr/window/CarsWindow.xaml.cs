@@ -1,18 +1,8 @@
 ﻿using gibdd_uchpr.model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Data.Entity;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace gibdd_uchpr.window
 {
@@ -32,7 +22,39 @@ namespace gibdd_uchpr.window
             LoadManufacturer();
             LoadDriver();
         }
+        private void CreateCar_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new gibddEntities())
+            {
+                try
+                {
+                    var newCar = new Cars
+                    {
+                        driver_id = (DriverComboBox.SelectedItem as Drivers)?.id ?? 0,
+                        VIN = VINTextBox.Text,
+                        manufacturer_id = (ManufacturerComboBox.SelectedItem as ManufacturerType)?.id ?? 0,
+                        model = ModelTextBox.Text,
+                        year = YearTextBox.Text,
+                        weight = int.TryParse(WeightTextBox.Text, out int weight) ? weight : 0,
+                        color_id = (ColorComboBox.SelectedItem as CarColors)?.id ?? 0,
+                        engine_type_id = (EngineComboBox.SelectedItem as EngineTypes)?.id ?? 0,
+                        type_of__drive_id = (TypeOfDriveComboBox.SelectedItem as TypeOfDrive)?.id ?? 0,
+                        code_region_id = (RegionComboBox.SelectedItem as RegionCodes)?.id ?? 0
+                    };
 
+                    context.Cars.Add(newCar);
+                    context.SaveChanges();
+
+                    UpdateCarList();
+
+                    MessageBox.Show("Машина успешно добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при добавлении машины: {ex.Message}\n{ex.InnerException}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
         private void UpdateCarList()
         {
             using (var context = new gibddEntities())

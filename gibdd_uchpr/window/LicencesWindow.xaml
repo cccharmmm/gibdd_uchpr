@@ -306,7 +306,7 @@
                      Margin="0 10 0 0" 
                      Style="{StaticResource PlaceholderTextBoxStyle}" 
                      Tag="Номер ВУ" 
-                     MaxLength="4"/>
+                     MaxLength="6"/>
             <ComboBox x:Name="DriverComboBox" 
                       Margin="0 10 0 10"  
                       Tag="Водитель" 
@@ -314,20 +314,21 @@
                       DisplayMemberPath="last_name"/>
             <DockPanel HorizontalAlignment="Center">
                 <Button Content="Создать" 
-            Background="LightGreen" 
-            Style="{StaticResource ActionButtonStyle}"  
-            Margin="0 5 0 0" 
-            Width="70"/>
+                        Background="LightGreen" 
+                        Style="{StaticResource ActionButtonStyle}"  
+                        Margin="0 5 0 0" 
+                        Width="70"
+                        Click="CreateLicense_Click"/>
                 <Button Content="Изменить" 
-            Background="LightGreen" 
-            Style="{StaticResource ActionButtonStyle}"  
-            Margin="10 5 0 0" 
-            Width="70"/>
+                        Background="LightGreen" 
+                        Style="{StaticResource ActionButtonStyle}"  
+                        Margin="10 5 0 0" 
+                        Width="70"/>
             </DockPanel>
             <Button Content="Удалить" 
-        Background="PaleVioletRed" 
-        Style="{StaticResource ActionButtonStyle}"  
-        Margin="0 5 0 0" Width="70"/>
+                    Background="PaleVioletRed" 
+                    Style="{StaticResource ActionButtonStyle}"  
+                    Margin="0 5 0 0" Width="70"/>
         </StackPanel>
     </Grid>
 </Window>

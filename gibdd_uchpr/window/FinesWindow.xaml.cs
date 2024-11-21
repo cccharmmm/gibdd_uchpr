@@ -1,18 +1,8 @@
 ﻿using gibdd_uchpr.model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Data.Entity;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace gibdd_uchpr.window
 {
@@ -30,6 +20,33 @@ namespace gibdd_uchpr.window
             LoadState();
 
 
+        }
+        private void CreateFine_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new gibddEntities())
+            {
+                try
+                {
+                    var newFine = new Fines
+                    {
+                        driver_id = (DriverComboBox.SelectedItem as Drivers)?.id ?? 0,
+                        car_id = (CarComboBox.SelectedItem as Cars)?.id ?? 0,
+                        state_id = (StateComboBox.SelectedItem as StateOfFines)?.id ?? 0,
+                        cost = int.TryParse(CostTextBox.Text, out int cost) ? cost : 0
+                    };
+
+                    context.Fines.Add(newFine);
+                    context.SaveChanges();
+
+                    UpdateFineList();
+
+                    MessageBox.Show("Штраф успешно добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при добавлении штрафа: {ex.Message}\n{ex.InnerException}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
         private void LoadDriver()
         {

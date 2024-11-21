@@ -1,20 +1,10 @@
 ﻿using gibdd_uchpr.model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Data.Entity;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.IO;
-using Microsoft.Win32;
+using System.Windows.Controls;
 
 namespace gibdd_uchpr.window
 {
@@ -23,6 +13,7 @@ namespace gibdd_uchpr.window
     /// </summary>
     public partial class DriversWindow : Window
     {
+        private string PhotoFileName { get; set; }
         public DriversWindow()
         {
             InitializeComponent();
@@ -39,8 +30,8 @@ namespace gibdd_uchpr.window
             {
                 var drivers = context.Drivers
                     .Include(d => d.CompanyJob)
+                    .OrderBy(d => d.id)
                     .ToList();
-
                 DriverListBox.ItemsSource = drivers;
             }
         }
@@ -94,23 +85,143 @@ namespace gibdd_uchpr.window
                 JobComboBox.ItemsSource = types;
             }
         }
-        //private void photoButton(object sender, RoutedEventArgs e)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.GIF; *.PNG)| *.BMP; *.JPG; *.GIF; *.PNG | All files(*.*) | *.* ";
-        //    if ((bool)openFileDialog.ShowDialog())
-        //    {
-        //        try
-        //        {
-        //            this.im = File.ReadAllBytes(openFileDialog.FileName);
-        //            lb1.Visibility = Visibility.Visible;
-        //        }
-        //        catch
-        //        {
-        //            lb1.Visibility = Visibility.Visible;
-        //            lb1.Content = "Ошибка";
-        //        }
-        //    }
-        //}
+        private void LoadPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp",
+                Title = "Выберите фото"
+            };
+
+            bool? result = openFileDialog.ShowDialog();
+            if (result == true)
+            {
+                string selectedFilePath = openFileDialog.FileName;
+
+                string fileName = System.IO.Path.GetFileName(selectedFilePath);
+                string targetDirectory = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "C:\\Users\\almaz\\source\\repos\\gibdd_uchpr\\gibdd_uchpr\\images\\");
+                string targetFilePath = System.IO.Path.Combine(targetDirectory, fileName);
+
+                if (!Directory.Exists(targetDirectory))
+                {
+                    Directory.CreateDirectory(targetDirectory);
+                }
+
+                File.Copy(selectedFilePath, targetFilePath, true);
+
+                string fileNameForDatabase = fileName;
+                PhotoFileName = fileNameForDatabase;
+
+                lb1.Content = "загружено" ;
+                lb1.Visibility = Visibility.Visible;
+            }
+        }
+        private void CreateDriver_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new gibddEntities())
+            {
+                try
+                {
+                    var newDriver = new Drivers
+                    {
+                        name = NameTextBox.Text,
+                        last_name = LastNameTextBox.Text,
+                        middle_name = MiddleNameTextBox.Text,
+                        passport_seria = SeriaTextBox.Text,
+                        passport_number = NumberTextBox.Text,
+                        address = AddressTextBox.Text,
+                        address_life = AddressLifeTextBox.Text,
+                        job_id = (JobComboBox.SelectedItem as CompanyJob)?.id ?? 0,
+                        phone = PhoneTextBox.Text,
+                        email = EmailTextBox.Text,
+                        photo = PhotoFileName, 
+                        description = DescriptionTextBox.Text 
+                    };
+
+                    context.Drivers.Add(newDriver);
+                    context.SaveChanges();
+
+                    MessageBox.Show("Водитель успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    UpdateDriverList(); 
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при добавлении водителя: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = NameTextBox.Text;
+            string last_name = LastNameTextBox.Text;
+            string middle_name = MiddleNameTextBox.Text;
+            string passport_seria = SeriaTextBox.Text;
+            string passport_number = NumberTextBox.Text;
+            string address = AddressTextBox.Text;
+            string address_life = AddressLifeTextBox.Text;
+            string phone = PhoneTextBox.Text;
+            string email = EmailTextBox.Text;
+            string job = (JobComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            if (string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(last_name) && string.IsNullOrWhiteSpace(middle_name) &&
+          string.IsNullOrWhiteSpace(passport_seria) && string.IsNullOrWhiteSpace(passport_number) &&
+          string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(address_life) &&
+          string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(job))
+            {
+                MessageBox.Show("Пожалуйста, заполните хотя бы одно поле для поиска.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            using (var context = new gibddEntities())
+            {
+                var query = context.Drivers.Include(d => d.CompanyJob).AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    query = query.Where(d => d.name.Contains(name));
+                }
+                if (!string.IsNullOrWhiteSpace(last_name))
+                {
+                    query = query.Where(d => d.last_name.Contains(last_name));
+                }
+                if (!string.IsNullOrWhiteSpace(middle_name))
+                {
+                    query = query.Where(d => d.middle_name.Contains(middle_name));
+                }
+                if (!string.IsNullOrWhiteSpace(passport_seria))
+                {
+                    query = query.Where(d => d.passport_seria.Contains(passport_seria));
+                }
+                if (!string.IsNullOrWhiteSpace(passport_number))
+                {
+                    query = query.Where(d => d.passport_number.Contains(passport_number));
+                }
+                if (!string.IsNullOrWhiteSpace(address))
+                {
+                    query = query.Where(d => d.address.Contains(address));
+                }
+                if (!string.IsNullOrWhiteSpace(address_life))
+                {
+                    query = query.Where(d => d.address_life.Contains(address_life));
+                }
+                if (!string.IsNullOrWhiteSpace(phone))
+                {
+                    query = query.Where(d => d.phone.Contains(phone));
+                }
+                if (!string.IsNullOrWhiteSpace(email))
+                {
+                    query = query.Where(d => d.email.Contains(email));
+                }
+
+                if (!string.IsNullOrWhiteSpace(job))
+                {
+                    query = query.Where(d => d.CompanyJob.company.Contains(job)); // Предположим, что 'name' - это поле в модели CompanyJob
+                }
+
+                var searchResults = query.OrderBy(d => d.id).ToList();
+                DriverListBox.ItemsSource = searchResults;
+            }
+        }
     }
 }
