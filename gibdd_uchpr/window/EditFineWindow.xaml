@@ -1,17 +1,18 @@
-﻿<Window x:Class="gibdd_uchpr.window.LicencesWindow"
+﻿<Window x:Class="gibdd_uchpr.window.EditFineWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gibdd_uchpr.window"
         mc:Ignorable="d"
-        Title="Водительское удостоверение" 
-        Height="490" 
-        Width="800"
+        Title="Изменить штраф" 
+        Height="350" 
+        Width="300"
         MinHeight="350"
-        MinWidth="700"
-        MaxHeight="550"
-        MaxWidth="900" WindowStartupLocation="CenterScreen" 
+        MinWidth="300"
+        MaxHeight="600"
+        MaxWidth="900"
+        WindowStartupLocation="CenterScreen"
         Icon="/images/logotype/gibdd_logo.png">
     <Window.Resources>
         <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
@@ -55,29 +56,29 @@
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <Border x:Name="border" Background="{TemplateBinding Background}"
-              BorderBrush="{TemplateBinding BorderBrush}"
-              BorderThickness="{TemplateBinding BorderThickness}"
-              CornerRadius="5"/>
+           BorderBrush="{TemplateBinding BorderBrush}"
+           BorderThickness="{TemplateBinding BorderThickness}"
+           CornerRadius="5"/>
                             <TextBlock x:Name="placeholder" Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                 Foreground="LightGray"
-                 Margin="5,0,0,0"
-                 VerticalAlignment="Center"
-                 IsHitTestVisible="False"
-                 Visibility="Collapsed"/>
+              Foreground="LightGray"
+              Margin="5,0,0,0"
+              VerticalAlignment="Center"
+              IsHitTestVisible="False"
+              Visibility="Collapsed"/>
                             <ToggleButton x:Name="toggleButton" Style="{StaticResource ComboBoxToggleButton}" Grid.Column="2" Focusable="false"
-                    IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                    ClickMode="Press"/>
+                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                 ClickMode="Press"/>
                             <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}"
-                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                        Margin="5,0,0,0"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"/>
+                     ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                     ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                     Margin="5,0,0,0"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left"/>
                             <TextBox x:Name="PART_EditableTextBox" Style="{StaticResource ComboBoxTextBox}" HorizontalAlignment="Left"
-               VerticalAlignment="Center" Margin="5,0,0,0" Focusable="True"
-               Background="Transparent" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+            VerticalAlignment="Center" Margin="5,0,0,0" Focusable="True"
+            Background="Transparent" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
                             <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False"
-             PopupAnimation="Slide">
+          PopupAnimation="Slide">
                                 <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder" Background="White" BorderBrush="Gray" BorderThickness="1"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
@@ -127,7 +128,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
                             <ContentPresenter HorizontalAlignment="Center" 
-                                         VerticalAlignment="Center"/>
+                                      VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -151,13 +152,13 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border 
-                    Background="{TemplateBinding Background}" 
-                    BorderBrush="{TemplateBinding BorderBrush}" 
-                    BorderThickness="{TemplateBinding BorderThickness}">
+                 Background="{TemplateBinding Background}" 
+                 BorderBrush="{TemplateBinding BorderBrush}" 
+                 BorderThickness="{TemplateBinding BorderThickness}">
                             <Border CornerRadius="3">
                                 <ContentPresenter 
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
                             </Border>
                         </Border>
                     </ControlTemplate>
@@ -183,20 +184,20 @@
                     <ControlTemplate TargetType="TextBox">
                         <Grid>
                             <Border x:Name="border" 
-                       Background="{TemplateBinding Background}"
-                       BorderBrush="{TemplateBinding BorderBrush}"
-                       BorderThickness="{TemplateBinding BorderThickness}"
-                       CornerRadius="5"/>
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5"/>
                             <TextBlock x:Name="placeholder" 
-                          Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                          Foreground="LightGray"
-                          Margin="5,0,0,0"
-                          VerticalAlignment="Center"
-                          IsHitTestVisible="False"
-                          Visibility="Collapsed"/>
+                       Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                       Foreground="LightGray"
+                       Margin="5,0,0,0"
+                       VerticalAlignment="Center"
+                       IsHitTestVisible="False"
+                       Visibility="Collapsed"/>
                             <ScrollViewer x:Name="PART_ContentHost" 
-                             VerticalAlignment="Center" 
-                             HorizontalAlignment="Left"/>
+                          VerticalAlignment="Center" 
+                          HorizontalAlignment="Left"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Text" Value="">
@@ -220,132 +221,54 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Top" 
-                        Orientation="Horizontal"  
-                        Background="LightBlue"
-                        VerticalAlignment="Center">
-                <Image Source="/images/logotype/gibdd_logo.png" 
-                       Width="75" 
-                       Height="50" 
-                       Margin="10 0 20 0" 
-                       VerticalAlignment="Center"/>
-                <Button Content="Водители" 
-                        Style="{StaticResource NavButtonStyle}" 
-                        Click="driversButton" Width="80"/>
-                <Button Content="Машины" 
-                        Style="{StaticResource NavButtonStyle}" Width="75" />
-                <Button Content="Штрафы" 
-                        Style="{StaticResource NavButtonStyle}" 
-                        Click="finesButton" Width="70"/>
-                <Button Content="Водительское удостоверение" 
-                        Style="{StaticResource NavButtonStyle}" 
-                        Width="218"/>
-                <Button Content="Выйти" 
-                        Style="{StaticResource NavButtonStyle}" 
-                        Margin="50 0 0 0"
-                        Click="exitButton" Width="53"/>
-            </StackPanel>
-            <ContentControl x:Name="MainContent" Margin="15"/>
-        </DockPanel>
-        <StackPanel Orientation="Horizontal" 
-            Margin="0 65 40 40" 
-            HorizontalAlignment="Right" 
-            Height="50" 
-            VerticalAlignment="Top">
-            <Button Content="Поиск" 
-                Margin="10 10 0 0" 
-                Style="{StaticResource ActionButtonStyle}" 
-                Width="120" 
-                Background="LightGray"
-                Click="SearchButton_Click"/>
-            <Button Content="Обновить" 
-                Margin="10 10 0 0" 
-                Style="{StaticResource ActionButtonStyle}" 
-                Width="90"
-                Background="LightGray"
-                Click="Update_Click"/>
-        </StackPanel>
-        <ListBox x:Name="LicenseListBox" 
-                HorizontalAlignment="Right" 
-                Width="450" 
-                Height="280" 
-                Margin="0 90 40 20">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding id}" Width="50" />
-                        <TextBlock Text="{Binding license_date}" Width="70" />
-                        <TextBlock Text="{Binding expire_date}" Width="70" />
-                        <TextBlock Text="{Binding license_series}" Width="70" />
-                        <TextBlock Text="{Binding license_number}" Width="70" />
-                        <TextBlock Text="{Binding Drivers.last_name}" Width="70" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom">
-            <Button Content="Отобразить категории ВУ" 
-                    Margin="0 5 40 15" 
-                    Style="{StaticResource ActionButtonStyle}" 
-                    Width="180"
-                    Background="LightGray"/>
-            <Button Content="Просмотреть историю ВУ" 
-                    Margin="-25 5 40 15" 
-        Style="{StaticResource ActionButtonStyle}" 
-        Width="180"
-        Background="LightGray"/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" 
-                    Margin="20 70 20 20" 
-                    HorizontalAlignment="Left" 
-                    Width="250">
-            <TextBox x:Name="LicenseDateTextBox"  
-                     Margin="0 10 0 0" 
-                     Style="{StaticResource PlaceholderTextBoxStyle}" 
-                     Tag="Дата выдачи" 
-                     MaxLength="10"/>
-            <TextBox x:Name="ExpireDateTextBox"  
-                     Margin="0 10 0 0" 
-                     Style="{StaticResource PlaceholderTextBoxStyle}" 
-                     Tag="Дата окончания действия" 
-                     MaxLength="10"/>
-            <TextBox x:Name="SeriesTextBox"  
-                     Margin="0 10 0 0" 
-                     Style="{StaticResource PlaceholderTextBoxStyle}" 
-                     Tag="Серия ВУ" 
-                     MaxLength="4"/>
-            <TextBox x:Name="NumberTextBox"  
-                     Margin="0 10 0 0" 
-                     Style="{StaticResource PlaceholderTextBoxStyle}" 
-                     Tag="Номер ВУ" 
-                     MaxLength="6"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="270*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" Margin="10,0,10,20" HorizontalAlignment="Left" Width="250" Grid.ColumnSpan="2" Grid.Column="1">
+            <Image Source="/images/logotype/gibdd_logo.png" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,10,0,0" 
+                   Height="50" Width="90"/>
+
+            <Label Content="Водитель*" HorizontalAlignment="Left"/>
             <ComboBox x:Name="DriverComboBox" 
-                      Margin="0 10 0 10"  
-                      Tag="Водитель" 
+                      Margin="0,0,0,0" 
                       Style="{StaticResource PlaceholderComboBoxStyle}"
                       DisplayMemberPath="last_name"/>
-            <DockPanel HorizontalAlignment="Center">
-                <Button Content="Создать" 
+
+            <Label Content="Машина*" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="CarComboBox"
+                      Margin="0,0,0,0" 
+                      Style="{StaticResource PlaceholderComboBoxStyle}"
+                      DisplayMemberPath="VIN"/>
+
+            <Label Content="Статус штрафа*" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="StateComboBox"
+                      Margin="0,0,0,0"
+                      Style="{StaticResource PlaceholderComboBoxStyle}"
+                      DisplayMemberPath="name"/>
+            <Label Content="Стоимость*" HorizontalAlignment="Left"/>
+            <TextBox x:Name="CostTextBox"  
+                     Margin="0,0,0,0"
+                     Style="{StaticResource PlaceholderTextBoxStyle}" 
+                     MaxLength="10"/>
+            <DockPanel HorizontalAlignment="Center" Margin="0,0,0,0">
+                <Button Content="Сохранить" 
                         Background="LightGreen" 
                         Style="{StaticResource ActionButtonStyle}"  
-                        Margin="0 5 0 0" 
-                        Width="70"
-                        Click="CreateLicense_Click"/>
-                <Button Content="Изменить" 
-                        Background="LightGreen" 
+                        Width="70" 
+                        Click="SaveButton_Click"/>
+                <Button Content="Отмена" 
+                        Background="LightCoral" 
                         Style="{StaticResource ActionButtonStyle}"  
-                        Margin="10 5 0 0" 
+                        Margin="0,0,0,0" 
                         Width="70"
-                        Click="EditSelectedLicense"/>
+                        Click="CancelButton_Click"/>
             </DockPanel>
-            <Button Content="Удалить" 
-                    Background="PaleVioletRed" 
-                    Style="{StaticResource ActionButtonStyle}"  
-                    Margin="0 5 0 0" Width="70"
-                    Click="Delete_Click"/>
         </StackPanel>
     </Grid>
 </Window>

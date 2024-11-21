@@ -15,8 +15,20 @@ namespace gibdd_uchpr.window
             Loaded += License_Loaded;
             LoadDriver();
         }
-   
 
+        private void EditSelectedLicense(object sender, RoutedEventArgs e)
+        {
+            if (LicenseListBox.SelectedItem is Licenses selectedLicense)
+            {
+                var editLicenseWindow = new EditLicensesWindow(selectedLicense);
+                editLicenseWindow.ShowDialog();
+                UpdateLicenseList();
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите ВУ для редактирования.");
+            }
+        }
         //private void showCategories_Click(object sender, RoutedEventArgs e)
         //{
         //    var selectedLicense = LicenseListBox.SelectedItem as Licenses;
@@ -52,7 +64,7 @@ namespace gibdd_uchpr.window
             {
                 MessageBox.Show("Пожалуйста, выберите водительское удостоверение для удаления.",
                                 "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                return; 
             }
 
             var selectedLicense = LicenseListBox.SelectedItem as Licenses;

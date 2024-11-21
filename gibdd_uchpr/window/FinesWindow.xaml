@@ -249,7 +249,7 @@
             <ContentControl x:Name="MainContent" Margin="15"/>
         </DockPanel>
         <StackPanel Orientation="Horizontal" 
-                    Margin="0 65 40 40" 
+                    Margin="0 60 40 40" 
                     HorizontalAlignment="Right" 
                     Height="50" 
                     VerticalAlignment="Top">
@@ -318,7 +318,8 @@
                     Background="LightGreen" 
                     Style="{StaticResource ActionButtonStyle}"  
                     Margin="10 5 0 0" 
-                    Width="70"/>
+                    Width="70"
+                    Click="EditSelectedFine"/>
             </DockPanel>
             <Button Content="Удалить" 
                 Background="PaleVioletRed" 

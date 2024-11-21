@@ -250,8 +250,6 @@ namespace gibdd_uchpr.window
             string region = (RegionComboBox.SelectedItem as RegionCodes)?.code.ToString();
             string year = YearTextBox.Text;
             string weight = WeightTextBox.Text;
-
-            // Проверка, что хотя бы одно поле заполнено
             if (string.IsNullOrWhiteSpace(vin) && string.IsNullOrWhiteSpace(model) &&
                 string.IsNullOrWhiteSpace(manufacturer) && string.IsNullOrWhiteSpace(driver) &&
                 string.IsNullOrWhiteSpace(color) && string.IsNullOrWhiteSpace(engine) &&

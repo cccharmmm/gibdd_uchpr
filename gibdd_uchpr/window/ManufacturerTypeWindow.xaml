@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:gibdd_uchpr.window"
         mc:Ignorable="d"
         Title="Производители машин" 
-        Height="360" 
-        Width="500"
+        Height="380" 
+        Width="570"
         MinHeight="350"
-        MinWidth="550"
+        MinWidth="570"
         MaxHeight="550"
         MaxWidth="900" WindowStartupLocation="CenterScreen" 
         Icon="/images/logotype/gibdd_logo.png">
@@ -242,10 +242,10 @@
             <ContentControl x:Name="MainContent" Margin="15"/>
         </DockPanel>
         <StackPanel Orientation="Horizontal" 
-                    Margin="70 65 40 40" 
+                    Margin="0,65,40,0" 
                     HorizontalAlignment="Right" 
                     Height="50" 
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Top" Width="240">
             <Button Content="Поиск" 
                     Margin="10 10 0 0" 
                     Style="{StaticResource ActionButtonStyle}" 
@@ -263,7 +263,7 @@
                 HorizontalAlignment="Right" 
                 Width="230" 
                 Height="200" 
-                Margin="0 105 40 20">
+                Margin="10 115 40 20">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -278,30 +278,31 @@
                 Margin="20 70 20 20" 
                 HorizontalAlignment="Left" 
                 Width="250">
-            <TextBox x:Name="CostTextBox"  
+            <TextBox x:Name="NameTextBox"  
                     Margin="0 10 0 10" 
                     Style="{StaticResource PlaceholderTextBoxStyle}" 
                     Tag="Название" 
-                    MaxLength="5"/>
+                    MaxLength="20"/>
             <DockPanel HorizontalAlignment="Center">
                 <Button Content="Создать" 
                     Background="LightGreen" 
                     Style="{StaticResource ActionButtonStyle}"  
                     Margin="0 5 0 0" 
                     Width="70"
-                    Click="CreateFine_Click"/>
+                    Click="CreateManufacturer_Click"/>
                 <Button Content="Изменить" 
                     Background="LightGreen" 
                     Style="{StaticResource ActionButtonStyle}"  
                     Margin="10 5 0 0" 
-                    Width="70"/>
+                    Width="70"
+                    Click="EditSelectedManufacturer"/>
                 <Button Content="Удалить" 
                     Background="PaleVioletRed" 
                     Style="{StaticResource ActionButtonStyle}"  
                     Margin="10 5 0 0" Width="70"
-                    Click="Delete_Click"/>
+                    Click="Delete_Click" />
             </DockPanel>
-           
+
         </StackPanel>
     </Grid>
 </Window>

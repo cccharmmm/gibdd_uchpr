@@ -18,6 +18,19 @@ namespace gibdd_uchpr.window
 
 
         }
+        private void EditSelectedFine(object sender, RoutedEventArgs e)
+        {
+            if (FineListBox.SelectedItem is Fines selectedFine)
+            {
+                var editFineWindow = new EditFineWindow(selectedFine);
+                editFineWindow.ShowDialog();
+                UpdateFineList();
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите штраф для редактирования.");
+            }
+        }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (FineListBox.SelectedItem == null)
