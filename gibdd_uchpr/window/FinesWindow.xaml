@@ -249,27 +249,28 @@
             <ContentControl x:Name="MainContent" Margin="15"/>
         </DockPanel>
         <StackPanel Orientation="Horizontal" 
-      Margin="0 65 40 40" 
-      HorizontalAlignment="Right" 
-      Height="50" 
-      VerticalAlignment="Top">
+                    Margin="0 65 40 40" 
+                    HorizontalAlignment="Right" 
+                    Height="50" 
+                    VerticalAlignment="Top">
             <Button Content="Поиск" 
-      Margin="10 10 0 0" 
-      Style="{StaticResource ActionButtonStyle}" 
-      Width="120" 
-      Background="LightGray"/>
+                    Margin="10 10 0 0" 
+                    Style="{StaticResource ActionButtonStyle}" 
+                    Width="120" 
+                    Background="LightGray"
+                    Click="SearchButton_Click"/>
             <Button Content="Обновить" 
-      Margin="10 10 0 0" 
-      Style="{StaticResource ActionButtonStyle}" 
-      Width="90"
-      Background="LightGray"
-      Click="Update_Click"/>
+                    Margin="10 10 0 0" 
+                    Style="{StaticResource ActionButtonStyle}" 
+                    Width="90"
+                    Background="LightGray"
+                    Click="Update_Click"/>
         </StackPanel>
         <ListBox x:Name="FineListBox" 
-           HorizontalAlignment="Right" 
-           Width="450" 
-           Height="280" 
-           Margin="0 110 40 20">
+                HorizontalAlignment="Right" 
+                Width="450" 
+                Height="280" 
+                Margin="0 110 40 20">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -322,7 +323,8 @@
             <Button Content="Удалить" 
                 Background="PaleVioletRed" 
                 Style="{StaticResource ActionButtonStyle}"  
-                Margin="0 5 0 0" Width="70"/>
+                Margin="0 5 0 0" Width="70"
+                Click="Delete_Click"/>
         </StackPanel>
     </Grid>
 </Window>

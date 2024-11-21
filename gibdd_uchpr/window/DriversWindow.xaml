@@ -7,11 +7,11 @@
         xmlns:class="clr-namespace:gibdd_uchpr.classes"
         mc:Ignorable="d"
         Title="Водители" 
-        Height="550" 
+        Height="560" 
         Width="800"
         MinHeight="350"
         MinWidth="700"
-        MaxHeight="550"
+        MaxHeight="560"
         MaxWidth="900" WindowStartupLocation="CenterScreen" 
         Icon="/images/logotype/gibdd_logo.png">
     <Window.Resources>
@@ -378,7 +378,8 @@
             <Button Content="Удалить" 
                     Background="PaleVioletRed" 
                     Style="{StaticResource ActionButtonStyle}"  
-                    Margin="0 5 0 0" Width="70"/>
+                    Margin="0 5 0 0" Width="70"
+                    Click="Delete_Click"/>
         </StackPanel>
     </Grid>
 </Window>

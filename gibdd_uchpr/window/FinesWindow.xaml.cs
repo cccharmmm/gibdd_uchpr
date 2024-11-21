@@ -6,9 +6,6 @@ using System.Data.Entity;
 
 namespace gibdd_uchpr.window
 {
-    /// <summary>
-    /// Логика взаимодействия для FinesWindow.xaml
-    /// </summary>
     public partial class FinesWindow : Window
     {
         public FinesWindow()
@@ -21,8 +18,66 @@ namespace gibdd_uchpr.window
 
 
         }
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (FineListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите штраф для удаления.",
+                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var selectedFine = FineListBox.SelectedItem as Fines;
+
+            var result = MessageBox.Show($"Вы уверены, что хотите удалить штраф с ID: {selectedFine.id}?",
+                                         "Подтверждение удаления",
+                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                using (var context = new gibddEntities())
+                {
+                    try
+                    {
+                        var fineToDelete = context.Fines.Find(selectedFine.id);
+
+                        if (fineToDelete != null)
+                        {
+                            context.Fines.Remove(fineToDelete);
+                            context.SaveChanges();
+
+                            MessageBox.Show("Штраф успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            UpdateFineList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Штраф не найден в базе данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении штрафа: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
         private void CreateFine_Click(object sender, RoutedEventArgs e)
         {
+            if (DriverComboBox.SelectedItem == null || CarComboBox.SelectedItem == null || StateComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Пожалуйста, заполните все обязательные поля: водитель, автомобиль и статус штрафа.",
+                                "Ошибка заполненности", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(CostTextBox.Text) || !int.TryParse(CostTextBox.Text, out int cost) || cost < 200)
+            {
+                MessageBox.Show("Пожалуйста, введите корректную стоимость штрафа (минимум 200 рублей).",
+                                "Ошибка стоимости", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             using (var context = new gibddEntities())
             {
                 try
@@ -32,7 +87,7 @@ namespace gibdd_uchpr.window
                         driver_id = (DriverComboBox.SelectedItem as Drivers)?.id ?? 0,
                         car_id = (CarComboBox.SelectedItem as Cars)?.id ?? 0,
                         state_id = (StateComboBox.SelectedItem as StateOfFines)?.id ?? 0,
-                        cost = int.TryParse(CostTextBox.Text, out int cost) ? cost : 0
+                        cost = cost
                     };
 
                     context.Fines.Add(newFine);
@@ -40,7 +95,7 @@ namespace gibdd_uchpr.window
 
                     UpdateFineList();
 
-                    MessageBox.Show("Штраф успешно добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Штраф успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -48,6 +103,49 @@ namespace gibdd_uchpr.window
                 }
             }
         }
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string driver = (DriverComboBox.SelectedItem as Drivers)?.last_name;
+            string carVIN = (CarComboBox.SelectedItem as Cars)?.VIN;
+            string state = (StateComboBox.SelectedItem as StateOfFines)?.name;
+            string cost = CostTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(driver) && string.IsNullOrWhiteSpace(carVIN) &&
+                string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(cost))
+            {
+                MessageBox.Show("Заполните хотя бы одно поле для поиска.");
+                return;
+            }
+
+            using (var context = new gibddEntities())
+            {
+                var query = context.Fines.Include(v => v.Drivers)
+                                               .Include(v => v.Cars)
+                                               .Include(v => v.StateOfFines)
+                                               .AsQueryable();
+                if (!string.IsNullOrWhiteSpace(driver))
+                    query = query.Where(v => v.Drivers.last_name.Contains(driver));
+
+                if (!string.IsNullOrWhiteSpace(carVIN))
+                    query = query.Where(v => v.Cars.VIN.Contains(carVIN));
+
+                if (!string.IsNullOrWhiteSpace(state))
+                    query = query.Where(v => v.StateOfFines.name.Contains(state));
+
+                if (!string.IsNullOrWhiteSpace(cost))
+                {
+                    if (int.TryParse(cost, out int costValue))
+                        query = query.Where(v => v.cost == costValue);
+                    else
+                        MessageBox.Show("Введите корректную стоимость.");
+                }
+
+                var searchResults = query.ToList();
+                FineListBox.ItemsSource = searchResults;
+            }
+        }
+
+
         private void LoadDriver()
         {
             using (var context = new gibddEntities())

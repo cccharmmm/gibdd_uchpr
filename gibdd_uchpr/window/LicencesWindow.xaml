@@ -257,7 +257,8 @@
                 Margin="10 10 0 0" 
                 Style="{StaticResource ActionButtonStyle}" 
                 Width="120" 
-                Background="LightGray"/>
+                Background="LightGray"
+                Click="SearchButton_Click"/>
             <Button Content="Обновить" 
                 Margin="10 10 0 0" 
                 Style="{StaticResource ActionButtonStyle}" 
@@ -328,7 +329,8 @@
             <Button Content="Удалить" 
                     Background="PaleVioletRed" 
                     Style="{StaticResource ActionButtonStyle}"  
-                    Margin="0 5 0 0" Width="70"/>
+                    Margin="0 5 0 0" Width="70"
+                    Click="Delete_Click"/>
         </StackPanel>
     </Grid>
 </Window>

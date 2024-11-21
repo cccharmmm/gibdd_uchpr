@@ -20,6 +20,50 @@ namespace gibdd_uchpr.window
             Loaded += Driver_Loaded;
             LoadCompanyJob();
         }
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (DriverListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите водителя для удаления.",
+                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var selectedDriver = DriverListBox.SelectedItem as Drivers;
+
+            var result = MessageBox.Show($"Вы уверены, что хотите удалить водителя: {selectedDriver.last_name} {selectedDriver.name}?",
+                                         "Подтверждение удаления",
+                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                using (var context = new gibddEntities())
+                {
+                    try
+                    {
+                        var driverToDelete = context.Drivers.Find(selectedDriver.id);
+
+                        if (driverToDelete != null)
+                        {
+                            context.Drivers.Remove(driverToDelete);
+                            context.SaveChanges();
+
+                            MessageBox.Show("Водитель успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            UpdateDriverList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Водитель не найден в базе данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении водителя: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
         public void Update_Click(object sender, RoutedEventArgs e)
         {
             UpdateDriverList();
@@ -112,12 +156,68 @@ namespace gibdd_uchpr.window
                 string fileNameForDatabase = fileName;
                 PhotoFileName = fileNameForDatabase;
 
-                lb1.Content = "загружено" ;
+                lb1.Content = "загружено";
                 lb1.Visibility = Visibility.Visible;
             }
         }
         private void CreateDriver_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(LastNameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(NameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(MiddleNameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(SeriaTextBox.Text) ||
+                string.IsNullOrWhiteSpace(NumberTextBox.Text) ||
+                string.IsNullOrWhiteSpace(AddressTextBox.Text) ||
+                string.IsNullOrWhiteSpace(AddressLifeTextBox.Text) ||
+                string.IsNullOrWhiteSpace(PhoneTextBox.Text) ||
+                string.IsNullOrWhiteSpace(EmailTextBox.Text) ||
+                string.IsNullOrWhiteSpace(PhotoFileName))
+            {
+                MessageBox.Show("Пожалуйста, заполните все обязательные поля.",
+                                "Ошибка заполненности", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(PhoneTextBox.Text, @"^8\d{10}$"))
+            {
+                MessageBox.Show("Номер телефона должен начинаться с '8' и содержать ровно 11 цифр.",
+                                "Ошибка формата телефона", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(EmailTextBox.Text, @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$"))
+            {
+                MessageBox.Show("Введите корректный адрес электронной почты.",
+                                "Ошибка формата email", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(NameTextBox.Text, @"^[a-zA-Zа-яА-ЯёЁ]+$") ||
+                !System.Text.RegularExpressions.Regex.IsMatch(LastNameTextBox.Text, @"^[a-zA-Zа-яА-ЯёЁ]+$") ||
+                !System.Text.RegularExpressions.Regex.IsMatch(MiddleNameTextBox.Text, @"^[a-zA-Zа-яА-ЯёЁ]+$"))
+            {
+                MessageBox.Show("Имя, фамилия и отчество должны содержать только буквы (латиница или кириллица).",
+                                "Ошибка формата имени", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (System.Text.RegularExpressions.Regex.IsMatch(AddressTextBox.Text, @"^\d+$") ||
+                System.Text.RegularExpressions.Regex.IsMatch(AddressLifeTextBox.Text, @"^\d+$") ||
+                System.Text.RegularExpressions.Regex.IsMatch(AddressTextBox.Text, @"^[a-zA-Zа-яА-ЯёЁ]+$") ||
+                System.Text.RegularExpressions.Regex.IsMatch(AddressLifeTextBox.Text, @"^[a-zA-Zа-яА-ЯёЁ]+$"))
+            {
+                MessageBox.Show("Адрес регистрации и адрес проживания должны содержать и буквы, и цифры.",
+                                "Ошибка формата адреса", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(PhotoFileName))
+            {
+                MessageBox.Show("Фотография не загружена. Пожалуйста, загрузите фотографию.",
+                                "Ошибка фото", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             using (var context = new gibddEntities())
             {
                 try
@@ -134,15 +234,15 @@ namespace gibdd_uchpr.window
                         job_id = (JobComboBox.SelectedItem as CompanyJob)?.id ?? 0,
                         phone = PhoneTextBox.Text,
                         email = EmailTextBox.Text,
-                        photo = PhotoFileName, 
-                        description = DescriptionTextBox.Text 
+                        photo = PhotoFileName,
+                        description = DescriptionTextBox.Text
                     };
 
                     context.Drivers.Add(newDriver);
                     context.SaveChanges();
 
                     MessageBox.Show("Водитель успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    UpdateDriverList(); 
+                    UpdateDriverList();
 
                 }
                 catch (Exception ex)
@@ -162,12 +262,13 @@ namespace gibdd_uchpr.window
             string address_life = AddressLifeTextBox.Text;
             string phone = PhoneTextBox.Text;
             string email = EmailTextBox.Text;
-            string job = (JobComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            string job = (JobComboBox.SelectedItem as CompanyJob)?.company; 
 
             if (string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(last_name) && string.IsNullOrWhiteSpace(middle_name) &&
-          string.IsNullOrWhiteSpace(passport_seria) && string.IsNullOrWhiteSpace(passport_number) &&
-          string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(address_life) &&
-          string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(job))
+                string.IsNullOrWhiteSpace(passport_seria) && string.IsNullOrWhiteSpace(passport_number) &&
+                string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(address_life) &&
+                string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(job))
             {
                 MessageBox.Show("Пожалуйста, заполните хотя бы одно поле для поиска.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -216,12 +317,13 @@ namespace gibdd_uchpr.window
 
                 if (!string.IsNullOrWhiteSpace(job))
                 {
-                    query = query.Where(d => d.CompanyJob.company.Contains(job)); // Предположим, что 'name' - это поле в модели CompanyJob
+                    query = query.Where(d => d.CompanyJob.company.Contains(job));
                 }
 
                 var searchResults = query.OrderBy(d => d.id).ToList();
                 DriverListBox.ItemsSource = searchResults;
             }
         }
+
     }
 }

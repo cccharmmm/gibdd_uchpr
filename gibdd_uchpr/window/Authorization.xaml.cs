@@ -15,9 +15,6 @@ using System.Windows.Threading;
 
 namespace gibdd_uchpr.window
 {
-    /// <summary>
-    /// Логика взаимодействия для Authorization.xaml
-    /// </summary>
     public partial class Authorization : Window
     {
         private int failedAttempts = 0;
