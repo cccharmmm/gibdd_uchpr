@@ -29,35 +29,6 @@ namespace gibdd_uchpr.window
                 MessageBox.Show("Пожалуйста, выберите ВУ для редактирования.");
             }
         }
-        //private void showCategories_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var selectedLicense = LicenseListBox.SelectedItem as Licenses;
-        //    if (selectedLicense == null)
-        //    {
-        //        MessageBox.Show("Выберите ВУ для отображения его категорий");
-        //        return;
-        //    }
-
-        //    int licenseId = selectedLicense.id;
-
-        //    using (var context = new gibddEntities())
-        //    {
-        //        var categories = context.LicenseCategories
-        //            .Where(d => d.id == license_id)
-        //            .ToList();
-
-        //        if (demands.Count == 0)
-        //        {
-        //            MessageBox.Show("У выбранного клиента нет потребностей");
-        //            return;
-        //        }
-        //    }
-
-        //    ClientDemand clientDemandWindow = new ClientDemand(clientId);
-        //    clientDemandWindow.ShowDialog();
-
-        //}
-
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (LicenseListBox.SelectedItem == null)
@@ -318,6 +289,20 @@ namespace gibdd_uchpr.window
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
+        }
+        private void ViewLicenseHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedLicense = LicenseListBox.SelectedItem as Licenses;
+            if (selectedLicense == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите ВУ.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int licenseId = selectedLicense.id;
+
+            var historyWindow = new HistoryOfStatusWindow(licenseId);
+            historyWindow.ShowDialog(); 
         }
     }
 }

@@ -4,13 +4,9 @@ using System.Linq;
 using System.Windows;
 using System.Data.Entity;
 using System.IO;
-using System.Windows.Controls;
 
 namespace gibdd_uchpr.window
 {
-    /// <summary>
-    /// Логика взаимодействия для DriversWindow.xaml
-    /// </summary>
     public partial class DriversWindow : Window
     {
         private string PhotoFileName { get; set; }

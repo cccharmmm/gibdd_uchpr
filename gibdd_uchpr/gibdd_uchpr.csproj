@@ -173,11 +173,17 @@
     <Compile Include="window\EditFineWindow.xaml.cs">
       <DependentUpon>EditFineWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\EditHistoryWindow.xaml.cs">
+      <DependentUpon>EditHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\EditLicensesWindow.xaml.cs">
       <DependentUpon>EditLicensesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="window\EditManufacturerTypeWindow.xaml.cs">
       <DependentUpon>EditManufacturerTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="window\HistoryOfStatusWindow.xaml.cs">
+      <DependentUpon>HistoryOfStatusWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="window\ManufacturerTypeWindow.xaml.cs">
       <DependentUpon>ManufacturerTypeWindow.xaml</DependentUpon>
@@ -206,6 +212,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="window\EditHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="window\EditLicensesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="window\FinesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\HistoryOfStatusWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

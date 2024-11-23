@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\almaz\source\repos\gibdd_uchpr\gibdd_uchpr\model\Model1.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\almaz\source\repos\gibdd_uchpr1\gibdd_uchpr\model\Model1.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.
