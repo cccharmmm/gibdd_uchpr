@@ -15,11 +15,14 @@ namespace gibdd_uchpr.window
         public DateTime lastActivityTime;
 
         public TextBox LoginTextBox => loginTextBox;  
-        public TextBox PasswordBox => passwordBox;  
+        public TextBox PasswordBox => passwordBox;
 
-        public Authorization()
+        private readonly gibddEntities _context;
+        public Authorization(gibddEntities context)
         {
+            System.Windows.Application.ResourceAssembly = typeof(Authorization).Assembly;
             InitializeComponent();
+            _context = context;
             inactivityTimer = new DispatcherTimer();
             inactivityTimer.Interval = TimeSpan.FromMinutes(1);
             inactivityTimer.Tick += InactivityTimer_Tick;

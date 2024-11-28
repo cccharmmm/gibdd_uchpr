@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using gibdd_uchpr.model;
+using System.Windows;
 
 namespace gibdd_uchpr.window
 {
@@ -12,7 +13,8 @@ namespace gibdd_uchpr.window
         private void loginButton(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Добро пожаловать!");
-            Authorization auth = new Authorization();
+            gibddEntities context = new gibddEntities();
+            Authorization auth = new Authorization(context);
             auth.Show();
             this.Close();
         }
