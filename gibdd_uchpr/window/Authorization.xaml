@@ -92,18 +92,21 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Grid>
-                            <Border x:Name="border" Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5"/>
+                            <Border x:Name="border" 
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="5"/>
                             <TextBlock x:Name="placeholder" 
-                            Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                            Foreground="LightGray"
-                            Margin="5,0,0,0"
-                            VerticalAlignment="Center"
-                            IsHitTestVisible="False"
-                            Visibility="Collapsed"/>
-                            <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"/>
+                                        Text="{Binding Tag, 
+                                        RelativeSource={RelativeSource TemplatedParent}}"
+                                        Foreground="LightGray"
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        IsHitTestVisible="False"
+                                        Visibility="Collapsed"/>
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          VerticalAlignment="Center"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Text" Value="">
@@ -112,7 +115,8 @@
                                         Value="Visible"/>
                             </Trigger>
                             <DataTrigger 
-                                Binding="{Binding Text, RelativeSource={RelativeSource Self}}" 
+                                Binding="{Binding Text, 
+                                RelativeSource={RelativeSource Self}}" 
                                 Value="">
                                 <Setter TargetName="placeholder" 
                                         Property="Visibility" 
@@ -158,14 +162,14 @@
         </DockPanel>
         <DockPanel Grid.Row="1" VerticalAlignment="Center">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
-                <TextBox Name="LoginTextBox" 
+                <TextBox x:Name="loginTextBox" 
                          Style="{StaticResource PlaceholderTextBoxStyle}" 
                          HorizontalAlignment="Center" 
                          Width="300" 
                          Margin="0,0,0,10"
                          Tag="Логин"
                          MaxLength="20"/>
-                <TextBox Name="PasswordBox" 
+                <TextBox x:Name="passwordBox" 
                              Style="{StaticResource PlaceholderTextBoxStyle}" 
                              HorizontalAlignment="Center" 
                              Width="300" 

@@ -1,27 +1,21 @@
 ﻿using gibdd_uchpr.model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace gibdd_uchpr.window
 {
     public partial class Authorization : Window
     {
-        private int failedAttempts = 0;
-        private DateTime? lockEndTime = null;
-        private DispatcherTimer inactivityTimer;
-        private DateTime lastActivityTime;
+        public int failedAttempts = 0;
+        public DateTime? lockEndTime = null;
+        public DispatcherTimer inactivityTimer;
+        public DateTime lastActivityTime;
+
+        public TextBox LoginTextBox => loginTextBox;  
+        public TextBox PasswordBox => passwordBox;  
 
         public Authorization()
         {
@@ -32,7 +26,7 @@ namespace gibdd_uchpr.window
             lastActivityTime = DateTime.Now;
         }
 
-        private void loginButton(object sender, RoutedEventArgs e)
+        public void loginButton(object sender, RoutedEventArgs e)
         {
             if (lockEndTime.HasValue && DateTime.Now < lockEndTime.Value)
             {
@@ -41,7 +35,7 @@ namespace gibdd_uchpr.window
             }
 
             string login = LoginTextBox.Text;
-            string password = PasswordBox.Text;
+            string password = PasswordBox.Text;  
 
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
@@ -93,7 +87,7 @@ namespace gibdd_uchpr.window
             }
         }
 
-        private void InactivityTimer_Tick(object sender, EventArgs e)
+        public void InactivityTimer_Tick(object sender, EventArgs e)
         {
             if (DateTime.Now - lastActivityTime > TimeSpan.FromMinutes(1))
             {
@@ -102,17 +96,17 @@ namespace gibdd_uchpr.window
             }
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+        public void Window_Activated(object sender, EventArgs e)
         {
             lastActivityTime = DateTime.Now;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             inactivityTimer.Start();
         }
 
-        private void backButton(object sender, RoutedEventArgs e)
+        public void backButton(object sender, RoutedEventArgs e)
         {
             MainWindow mW = new MainWindow();
             mW.Show();

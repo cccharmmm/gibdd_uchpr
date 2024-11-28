@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Data.Entity;
 using gibdd_uchpr.model;
-using System.ComponentModel;
 
 namespace gibdd_uchpr.window
 {

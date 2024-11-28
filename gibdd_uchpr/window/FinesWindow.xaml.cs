@@ -15,8 +15,6 @@ namespace gibdd_uchpr.window
             LoadDriver();
             LoadCar();
             LoadState();
-
-
         }
         private void EditSelectedFine(object sender, RoutedEventArgs e)
         {

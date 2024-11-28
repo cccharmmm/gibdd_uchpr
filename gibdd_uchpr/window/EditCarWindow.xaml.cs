@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Data.Entity;
 using gibdd_uchpr.model;
 using System.Linq;
 using System;
